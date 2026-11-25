@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedAt": "2026-11-25",
+  "sourceValidator": "https://verixml.com/en/validator",
+  "fixtures": [
+    {
+      "path": "valid/xrechnung-3.0-ubl-standard.xml",
+      "syntax": "UBL-2.1",
+      "profile": "XRechnung 3.0",
+      "expectedStatus": "pass",
+      "expectedErrors": [],
+      "notes": "German B2G invoice with valid Leitweg-ID (BT-10 = 991-12345-67) and 19% VAT."
+    },
+    {
+      "path": "valid/zugferd-en16931-cii-de-mixed-vat.xml",
+      "syntax": "CII",
+      "profile": "ZUGFeRD / Factur-X EN 16931",
+      "expectedStatus": "pass",
+      "expectedErrors": [],
+      "notes": "Domestic German B2B invoice mixing 19% standard and 7% reduced VAT lines."
+    },
+    {
+      "path": "valid/facturx-en16931-cii-cross-border.xml",
+      "syntax": "CII",
+      "profile": "Factur-X / ZUGFeRD EN 16931",
+      "expectedStatus": "pass",
+      "expectedErrors": [],
+      "notes": "Cross-border DE -> FR event admission invoice with German 19% VAT."
+    },
+    {
+      "path": "invalid/br-co-14-vat-total-mismatch.xml",
+      "syntax": "CII",
+      "profile": "Factur-X / ZUGFeRD EN 16931",
+      "expectedStatus": "fail",
+      "expectedErrors": ["BR-CO-14"],
+      "notes": "BT-110 TaxTotalAmount tampered to 260.00 while BG-23 VAT breakdown sums to 285.00."
+    },
+    {
+      "path": "invalid/br-co-15-due-payable-mismatch.xml",
+      "syntax": "CII",
+      "profile": "Factur-X / ZUGFeRD EN 16931",
+      "expectedStatus": "fail",
+      "expectedErrors": ["BR-CO-15"],
+      "notes": "BT-112 GrandTotalAmount tampered to 1795.00 instead of 1500.00 + 285.00 = 1785.00."
+    },
+    {
+      "path": "invalid/br-de-15-missing-leitweg-id.xml",
+      "syntax": "UBL-2.1",
+      "profile": "XRechnung 3.0",
+      "expectedStatus": "fail",
+      "expectedErrors": ["BR-DE-15"],
+      "notes": "Missing cbc:BuyerReference (BT-10 / Leitweg-ID); schema-valid UBL but fails XRechnung CIUS rule BR-DE-15."
+    }
+  ]
+}
