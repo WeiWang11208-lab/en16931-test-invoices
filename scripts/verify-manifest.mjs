@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const manifest = JSON.parse(readFileSync(resolve(root, 'manifest.json'), 'utf8'));
 
-if (!Array.isArray(manifest.fixtures) || manifest.fixtures.length !== 6) {
-  throw new Error('Expected exactly 6 fixtures in manifest.json');
+if (!Array.isArray(manifest.fixtures) || manifest.fixtures.length < 8) {
+  throw new Error(`Expected at least 8 fixtures in manifest.json, got ${manifest.fixtures?.length}`);
 }
 
 for (const item of manifest.fixtures) {
